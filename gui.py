@@ -4,7 +4,7 @@ import sys
 import math
 import core
 from PyQt5.QtCore import pyqtSignal, QObject, QTimer
-from PyQt5.QtWidgets import QWidget,QApplication, QPushButton
+from PyQt5.QtWidgets import QWidget,QApplication, QPushButton,QVBoxLayout
 from PyQt5.QtGui import QPainter, QColor, QFont, QBrush
 
 class gui(QWidget):
@@ -21,11 +21,28 @@ class gui(QWidget):
         self.setWindowTitle('life-game')
 
         #1つ進むbuttonの設定
-        button = QPushButton(u'1つ進む',self)  
+        button = QPushButton(u'手動',self)  
         ##ボタンがクリックされたらredraw()が呼ばれる
         button.clicked.connect(self.redraw)
-        button.move(600,500)
-        
+        button.setMinimumWidth(200)
+        button.move(550,400)
+
+        #Timerの設定
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.redraw)
+
+        #start
+        startButton = QPushButton(u'自動',self)  
+        startButton.clicked.connect(self.startTimer)
+        startButton.setMinimumWidth(90)
+        startButton.move(550,450)
+
+        #stop
+        stopButton = QPushButton(u'停止',self)  
+        stopButton.clicked.connect(self.stopTimer)
+        stopButton.setMinimumWidth(90)
+        stopButton.move(660,450)
+
         #windowの表示
         self.show()
 
@@ -58,10 +75,18 @@ class gui(QWidget):
                     q_paint.setBrush(QColor(0,0,0,128))
                 q_paint.drawRect(i*10+25,j*10+25,10, 10)
     
-    #1つ進むボタンが押されたときに呼ばれるメゾット
+    #更新
     def redraw(self):
         self.lifegame.forward()
         self.repaint()
+    
+    #startButton
+    def startTimer(self):
+        self.timer.start(500)
+
+    #stopButton
+    def stopTimer(self):
+        self.timer.stop()
               
 if __name__ == '__main__':
     app = QApplication(sys.argv)
