@@ -3,7 +3,7 @@
 import sys
 import math
 import core
-from PyQt5.QtCore import pyqtSignal, QObject
+from PyQt5.QtCore import pyqtSignal, QObject, QTimer
 from PyQt5.QtWidgets import QWidget,QApplication, QPushButton
 from PyQt5.QtGui import QPainter, QColor, QFont, QBrush
 
@@ -52,7 +52,7 @@ class gui(QWidget):
     def drawField(self,q_paint):
         for i in range(50):
             for j in range (50):
-                if (self.lifegame.field[i][j] == 1):
+                if (self.lifegame.field[i][j] == 0):
                     q_paint.setBrush(QColor(255,255,255,128))
                 else:
                     q_paint.setBrush(QColor(0,0,0,128))
