@@ -10,7 +10,7 @@ class Lifegame():
             for b in range(len(self.field)):
                 self.checkCell(a,b)
         self.updateField()
-    def countSurvival(self,i,j): #生存数を教えてくれるやつ
+    def countSurvivor(self,i,j): #生存数を教えてくれるやつ
         count = 0
         for a in range(-1,2):
             for b in range(-1,2):
@@ -19,7 +19,7 @@ class Lifegame():
                         count += 1
         return count
     def checkCell(self,i,j): #cellに対して生存死亡判定をしてくれるやつ
-        tmp = self.countSurvival(i,j)
+        tmp = self.countSurvivor(i,j)
         if tmp == 3:
             self.nextField[i][j] = 0
         elif tmp >= 4 or tmp <= 1:
